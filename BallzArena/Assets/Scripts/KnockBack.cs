@@ -6,6 +6,7 @@ public class KnockBack : MonoBehaviour {
 
 	public float m_knockBackAmount = 5.0f;
 	public float m_knockBackMultiplier = 1.5f;
+	public float m_knockBackWaitTime = 0.5f;
 	public Rigidbody m_rb;
 	public bool m_isKnocked;
 
@@ -22,7 +23,8 @@ public class KnockBack : MonoBehaviour {
 	}
 
 	IEnumerator IsKnockedBack() {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(m_knockBackWaitTime);
+		m_knockBackWaitTime *= m_knockBackMultiplier;
 		m_isKnocked = false;
     }
 }
