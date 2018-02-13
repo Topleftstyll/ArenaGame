@@ -56,8 +56,6 @@ public class Player : MonoBehaviour {
 		GameObject bullet = (GameObject)Instantiate(m_bulletPrefab, myPos, rotation);
 		bullet.tag = gameObject.tag;
 	 	bullet.GetComponent<Rigidbody>().velocity = direction * m_bulletSpeed;
-
-		Destroy(bullet, 2.0f);
 	}
 
 	IEnumerator FireRate() {

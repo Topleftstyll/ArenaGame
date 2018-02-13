@@ -25,6 +25,10 @@ GameObject:
   - component: {fileID: 54238031554160646}
   - component: {fileID: 114167202171929934}
   - component: {fileID: 114667212193485598}
+  - component: {fileID: 114646007705271342}
+  - component: {fileID: 114813950209607920}
+  - component: {fileID: 114663998992778438}
+  - component: {fileID: 114341960806481844}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -90,7 +94,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1193549339359308}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.84, y: 0.64, z: 0}
+  m_LocalPosition: {x: 3.03, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4842642134751476}
@@ -116,7 +120,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1305897439107320}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.9961468, w: 0.08770147}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
@@ -282,7 +286,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1193549339359308}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78b5a8068b044844b83be60c26ab3594, type: 3}
   m_Name: 
@@ -299,11 +303,74 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1305897439107320}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5535a3492bb65c40a12eb285521dc87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114341960806481844
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1193549339359308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1267208747, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 4842642134751476}
+  m_ChildIndex: 0
+  m_SendInterval: 0.033333335
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_MovementThreshold: 0.001
+  m_InterpolateRotation: 0.5
+  m_InterpolateMovement: 0.5
+--- !u!114 &114646007705271342
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1193549339359308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 141
+    i1: 233
+    i2: 187
+    i3: 7
+    i4: 51
+    i5: 30
+    i6: 81
+    i7: 164
+    i8: 75
+    i9: 190
+    i10: 36
+    i11: 10
+    i12: 199
+    i13: 43
+    i14: 66
+    i15: 28
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
+--- !u!114 &114663998992778438
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1193549339359308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40c5d6bd656e8114383c0838407b242e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_rotateWeaponScript: {fileID: 114319192574189802}
 --- !u!114 &114667212193485598
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -317,7 +384,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_knockBackAmount: 7
   m_knockBackMultiplier: 1.5
+  m_knockBackWaitTime: 0.5
   m_rb: {fileID: 54238031554160646}
+  m_isKnocked: 0
+--- !u!114 &114813950209607920
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1193549339359308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0.033333335
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!135 &135592831743154694
 SphereCollider:
   m_ObjectHideFlags: 1
