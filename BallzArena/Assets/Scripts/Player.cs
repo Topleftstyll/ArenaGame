@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class Player : MonoBehaviour {
+public class Player : NetworkBehaviour {
 
 	public float m_speed = 10.0f;
 	public float m_baseJumpForce = 10.0f;
@@ -41,21 +42,23 @@ public class Player : MonoBehaviour {
 		}
 
 		if(Input.GetMouseButtonDown(0) && m_canShoot) {
-			Fire();
+			CmdFire();
 			m_canShoot = false;
 			StartCoroutine(FireRate());
 		}
 	}
 
-	void Fire() {
+	[Command]
+	void CmdFire() {
 		Vector2 target = Camera.main.ScreenToWorldPoint( new Vector2(Input.mousePosition.x,  Input.mousePosition.y) );
 		Vector2 myPos = new Vector2(transform.position.x, transform.position.y);
 		Vector2 direction = target - myPos;
 		direction.Normalize();
 		Quaternion rotation = Quaternion.Euler( 0, 0, Mathf.Atan2 ( direction.y, direction.x ) * Mathf.Rad2Deg );
 		GameObject bullet = (GameObject)Instantiate(m_bulletPrefab, myPos, rotation);
-		bullet.tag = gameObject.tag;
+		bullet.tag = "Player";
 	 	bullet.GetComponent<Rigidbody>().velocity = direction * m_bulletSpeed;
+		NetworkServer.Spawn(bullet);
 	}
 
 	IEnumerator FireRate() {
