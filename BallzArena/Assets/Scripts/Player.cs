@@ -6,12 +6,15 @@ using UnityEngine.Networking;
 public class Player : NetworkBehaviour {
 
 	public float m_speed = 10.0f;
+	public float m_gravityMultiplier = 1.5f;
 	public float m_baseJumpForce = 10.0f;
 	public float m_bulletSpeed = 6.0f;
 	public GameObject m_bulletPrefab;
 	public GameObject m_bulletSpawn;
 
 	private Rigidbody m_rb;
+	private Vector3 m_gravity;
+	private Vector3 m_jumpGravity;
 	private bool m_isGrounded = false;
 	private int m_numOfJumps = 3;
 	private int m_currNumOfJumps;
@@ -22,6 +25,8 @@ public class Player : NetworkBehaviour {
 		m_rb = GetComponent<Rigidbody>();
 		m_knockBackScript = GetComponent<KnockBack>();
 		m_currNumOfJumps = m_numOfJumps;
+		m_gravity = Physics.gravity;
+		m_jumpGravity = m_gravity*m_gravityMultiplier;
 	}
 
 	void Update() {
@@ -36,8 +41,15 @@ public class Player : NetworkBehaviour {
 
 			if(Input.GetButtonDown("Jump") && m_currNumOfJumps > 0) {
 				m_rb.velocity = Vector3.up * m_baseJumpForce;
+				Physics.gravity = m_gravity;
 				m_isGrounded = false;
 				m_currNumOfJumps--;
+			}
+
+			if (m_rb.velocity.y < 0.1 && !m_isGrounded) {
+				Physics.gravity = m_jumpGravity;
+			} else if (m_isGrounded && Physics.gravity == m_jumpGravity) {
+				Physics.gravity = m_gravity;
 			}
 		}
 

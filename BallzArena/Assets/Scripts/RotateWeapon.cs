@@ -7,7 +7,7 @@ public class RotateWeapon : MonoBehaviour {
 	void Update () {
          //rotation
          Vector3 mousePos = Input.mousePosition;
-         mousePos.z = 5.23f;
+         mousePos.z = 0f;
  
          Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
          mousePos.x = mousePos.x - objectPos.x;
