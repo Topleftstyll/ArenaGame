@@ -17,5 +17,6 @@ public class EnableNetworkedScripts : NetworkBehaviour {
 	public override void OnStartLocalPlayer()
     {
         GetComponent<MeshRenderer>().material.color = Color.blue;
+		this.tag = "Player";
     }
 }
