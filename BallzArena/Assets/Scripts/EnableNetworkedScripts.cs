@@ -12,6 +12,11 @@ public class EnableNetworkedScripts : NetworkBehaviour {
 			GetComponent<Player>().enabled = true;
 			m_rotateWeaponScript.enabled = true;
 		}
+		CameraScript cameraScript = Camera.main.GetComponentInParent<CameraScript>();
+		if (!cameraScript.enabled) {
+			cameraScript.enabled = true;
+		}
+		cameraScript.m_targets.Add(transform);
 	}
 
 	public override void OnStartLocalPlayer()
