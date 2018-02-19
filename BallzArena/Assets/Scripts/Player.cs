@@ -67,18 +67,9 @@ public class Player : NetworkBehaviour {
 		Vector2 direction = target - myPos;
 		direction.Normalize();
 		Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-		GameObject bullet = (GameObject)Instantiate(m_bulletPrefab, myPos, rotation);
+		GameObject bullet = (GameObject)Instantiate(m_bulletPrefab, m_bulletSpawn.transform.position, rotation);
 	 	bullet.GetComponent<Rigidbody>().velocity = direction * m_bulletSpeed;
 		NetworkServer.Spawn(bullet);
-		if(isClient) {
-			RpcSetTag(bullet);
-		}
-		bullet.tag = "Player";
-	}
-
-	[ClientRpc]
-	void RpcSetTag(GameObject bullet) {
-		bullet.tag = "Player";
 	}
 
 	IEnumerator FireRate() {

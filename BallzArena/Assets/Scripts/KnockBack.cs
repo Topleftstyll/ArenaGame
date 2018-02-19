@@ -13,8 +13,8 @@ public class KnockBack : NetworkBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if(isLocalPlayer) {
-			if(other.gameObject.name == "PlayerBullet(Clone)" && other.tag != "Player") {
-				//CmdDestroy(other.gameObject);
+			if(other.gameObject.name == "PlayerBullet(Clone)") {
+				CmdDestroy(other.gameObject);
 				m_isKnocked = true;
 				Vector2 dir = other.transform.position - transform.position;
 				dir.Normalize();
