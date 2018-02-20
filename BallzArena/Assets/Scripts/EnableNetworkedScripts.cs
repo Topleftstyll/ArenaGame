@@ -16,6 +16,7 @@ public class EnableNetworkedScripts : NetworkBehaviour {
 		if (!cameraScript.enabled) {
 			cameraScript.enabled = true;
 		}
+		GameManager.Instance.AddPlayer(gameObject);
 		cameraScript.m_targets.Add(transform);
 	}
 
