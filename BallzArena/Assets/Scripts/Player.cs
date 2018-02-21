@@ -9,6 +9,7 @@ public class Player : NetworkBehaviour {
 	public float m_gravityMultiplier = 1.5f;
 	public float m_baseJumpForce = 10.0f;
 	public float m_bulletSpeed = 6.0f;
+	public float m_knockBackAmount = 5.0f;
 	public GameObject m_bulletPrefab;
 	public GameObject m_bulletSpawn;
 
@@ -20,7 +21,10 @@ public class Player : NetworkBehaviour {
 	private int m_numOfJumps = 3;
 	private int m_currNumOfJumps;
 	private bool m_canShoot = true;
+	private bool m_isPowerShot = false;
+	private bool m_isKnockedBack = false;
 	private KnockBack m_knockBackScript;
+	private float m_powerShotTimer = 0.0f;
 
 	void Awake() {
 		m_rb = GetComponent<Rigidbody>();
@@ -31,7 +35,7 @@ public class Player : NetworkBehaviour {
 	}
 
 	void Update() {
-		if(!m_knockBackScript.m_isKnocked) {
+		if(!m_knockBackScript.m_isKnocked && !m_isKnockedBack) {
 			if(Input.GetKey(KeyCode.A)) {
 				transform.Translate(Vector3.left * Time.deltaTime * m_speed);
 			} 
@@ -54,15 +58,30 @@ public class Player : NetworkBehaviour {
 			}
 		}
 
-		if(Input.GetMouseButtonDown(0) && m_canShoot) {
+		if(Input.GetMouseButton(0)) {
+			m_powerShotTimer += Time.deltaTime;
+			if(m_powerShotTimer >= 1.0f) {
+				m_isPowerShot = true;
+			}
+		}
+
+		if(Input.GetMouseButtonUp(0) && m_canShoot) {
+			m_canShoot = false;
 			Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
 			Vector2 myPos = new Vector2(transform.position.x, transform.position.y);
 			Vector2 direction = target - myPos;
 			direction.Normalize();
 			Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-			CmdFire(rotation, direction);
-			m_canShoot = false;
+			if(m_isPowerShot) {
+				m_isKnockedBack = true;
+				CmdPowerShotFire(rotation, direction);
+				m_rb.AddForce(-direction * m_knockBackAmount, ForceMode.Impulse);
+				StartCoroutine(DisableMovement());
+			} else {
+				CmdFire(rotation, direction);
+			}
 			StartCoroutine(FireRate());
+			m_powerShotTimer = 0.0f;
 		}
 	}
 
@@ -75,14 +94,24 @@ public class Player : NetworkBehaviour {
 		NetworkServer.Spawn(bullet);
 	}
 
-	[ClientRpc]
-	void RpcSetTag(GameObject bullet) {
-		bullet.tag = "Player";
+	[Command]
+	void CmdPowerShotFire(Quaternion rotation, Vector2 direction) {
+		GameObject bullet = Instantiate(m_bulletPrefab);
+		bullet.transform.position = m_bulletSpawn.transform.position;
+		bullet.transform.rotation = rotation;
+		bullet.GetComponent<Rigidbody>().velocity = direction * m_bulletSpeed;
+		NetworkServer.Spawn(bullet);
 	}
 
 	IEnumerator FireRate() {
         yield return new WaitForSeconds(.5f);
 		m_canShoot = true;
+    }
+
+	IEnumerator DisableMovement() {
+        yield return new WaitForSeconds(.5f);
+		m_isKnockedBack = false;
+		m_isPowerShot = false;
     }
 
 	void OnCollisionEnter(Collision other) {
