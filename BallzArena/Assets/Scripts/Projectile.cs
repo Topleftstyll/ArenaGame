@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class Projectile : MonoBehaviour {
 
@@ -8,7 +9,7 @@ public class Projectile : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
         if(other.tag == "KillLine") {
-            gameObject.SetActive(false);
+
         }
     }
 }

@@ -12,6 +12,7 @@ public class Player : NetworkBehaviour {
 	public GameObject m_bulletPrefab;
 	public GameObject m_bulletSpawn;
 
+
 	private Rigidbody m_rb;
 	private Vector3 m_gravity;
 	private Vector3 m_jumpGravity;
@@ -54,25 +55,24 @@ public class Player : NetworkBehaviour {
 		}
 
 		if(Input.GetMouseButtonDown(0) && m_canShoot) {
-			CmdFire();
+			Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+			Vector2 myPos = new Vector2(transform.position.x, transform.position.y);
+			Vector2 direction = target - myPos;
+			direction.Normalize();
+			Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+			CmdFire(rotation, direction);
 			m_canShoot = false;
 			StartCoroutine(FireRate());
 		}
 	}
 
 	[Command]
-	void CmdFire() {
-		Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
-		Vector2 myPos = new Vector2(transform.position.x, transform.position.y);
-		Vector2 direction = target - myPos;
-		direction.Normalize();
-		Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-		GameObject bullet = PoolManager.Instance.GetObject((int)Objects.Bullet);
-		bullet.transform.position = transform.position;
+	void CmdFire(Quaternion rotation, Vector2 direction) {
+		GameObject bullet = Instantiate(m_bulletPrefab);
+		bullet.transform.position = m_bulletSpawn.transform.position;
 		bullet.transform.rotation = rotation;
-		bullet.SetActive(true);
-	 	bullet.GetComponent<Rigidbody>().velocity = direction * m_bulletSpeed;
-//		NetworkServer.Spawn(bullet);
+		bullet.GetComponent<Rigidbody>().velocity = direction * m_bulletSpeed;
+		NetworkServer.Spawn(bullet);
 	}
 
 	[ClientRpc]

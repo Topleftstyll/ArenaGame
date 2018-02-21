@@ -298,6 +298,7 @@ MonoBehaviour:
   m_bulletPrefab: {fileID: 1266435631835870, guid: fd1e88f447662644b9a659b2c3c80ed1,
     type: 2}
   m_bulletSpawn: {fileID: 1583907045307466}
+  m_managerPrefab: {fileID: 0}
 --- !u!114 &114319192574189802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -372,6 +373,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_rotateWeaponScript: {fileID: 114319192574189802}
+  m_managerPrefab: {fileID: 1798192587612054, guid: 796f95df7fd1586428c7c77223a2c825,
+    type: 2}
 --- !u!114 &114667212193485598
 MonoBehaviour:
   m_ObjectHideFlags: 1

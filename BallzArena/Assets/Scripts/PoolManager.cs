@@ -24,9 +24,7 @@ public class PoolManager : NetworkBehaviour {
 	private const float LISTGROWTHPERCENTAGE = 1.15f;
 
 	private void Awake() {
-		//if (m_instance == null) {
 		m_instance = this;
-		//}
 		m_poolContainer = new GameObject();
 		m_poolContainer.name = "pooledObjects";
 		InitObjectArrays();
@@ -84,6 +82,7 @@ public class PoolManager : NetworkBehaviour {
 		int difference = newPoolCapacity - currentPoolCapacity;
 		for (int i = 0; i < difference; i++) {
 			GameObject temp = Instantiate(m_objectTypes[type].m_objectPrefab);
+			NetworkServer.Spawn(temp);
 			temp.SetActive(false);
 			temp.transform.parent = m_objectContainers[type].transform;			
 			m_objectTypes[type].m_objects.Add(temp);
