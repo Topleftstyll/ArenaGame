@@ -13,7 +13,6 @@ public class Player : NetworkBehaviour {
 	public GameObject m_bulletPrefab;
 	public GameObject m_bulletSpawn;
 
-
 	private Rigidbody m_rb;
 	private Vector3 m_gravity;
 	private Vector3 m_jumpGravity;
@@ -25,10 +24,13 @@ public class Player : NetworkBehaviour {
 	private bool m_isKnockedBack = false;
 	private KnockBack m_knockBackScript;
 	private float m_powerShotTimer = 0.0f;
+	private ParticleSystem m_powerUpParticles;
 
 	void Awake() {
 		m_rb = GetComponent<Rigidbody>();
 		m_knockBackScript = GetComponent<KnockBack>();
+		m_powerUpParticles = m_bulletSpawn.GetComponent<ParticleSystem>();
+		m_powerUpParticles.Stop();
 		m_currNumOfJumps = m_numOfJumps;
 		m_gravity = Physics.gravity;
 		m_jumpGravity = m_gravity*m_gravityMultiplier;
@@ -60,12 +62,18 @@ public class Player : NetworkBehaviour {
 
 		if(Input.GetMouseButton(0)) {
 			m_powerShotTimer += Time.deltaTime;
-			if(m_powerShotTimer >= 1.0f) {
-				m_isPowerShot = true;
+			if(m_powerShotTimer >= 0.1) {
+				m_powerUpParticles.Play();
+				if(m_powerShotTimer >= 1.0f) {
+					ChangeParticleColor(Color.red);
+					m_isPowerShot = true;
+				}
 			}
 		}
 
 		if(Input.GetMouseButtonUp(0) && m_canShoot) {
+			m_powerUpParticles.Stop();
+			ChangeParticleColor(Color.yellow);
 			m_canShoot = false;
 			Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
 			Vector2 myPos = new Vector2(transform.position.x, transform.position.y);
@@ -101,6 +109,11 @@ public class Player : NetworkBehaviour {
 		bullet.transform.rotation = rotation;
 		bullet.GetComponent<Rigidbody>().velocity = direction * m_bulletSpeed;
 		NetworkServer.Spawn(bullet);
+	}
+
+	void ChangeParticleColor(Color color) {
+		var main = m_powerUpParticles.main;
+		main.startColor = color;
 	}
 
 	IEnumerator FireRate() {
