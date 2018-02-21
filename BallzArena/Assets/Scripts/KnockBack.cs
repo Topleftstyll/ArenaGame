@@ -18,7 +18,8 @@ public class KnockBack : NetworkBehaviour {
 				m_isKnocked = true;
 				Vector2 dir = other.transform.position - transform.position;
 				dir.Normalize();
-				m_rb.AddForce(-dir * m_knockBackAmount, ForceMode.Impulse);
+				//m_rb.AddForce(-dir * m_knockBackAmount, ForceMode.Impulse);
+				m_rb.velocity = -dir * m_knockBackAmount;
 				m_knockBackAmount *= m_knockBackMultiplier;
 				StartCoroutine(IsKnockedBack());
 			}

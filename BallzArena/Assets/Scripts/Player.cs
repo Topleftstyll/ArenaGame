@@ -83,7 +83,7 @@ public class Player : NetworkBehaviour {
 			if(m_isPowerShot) {
 				m_isKnockedBack = true;
 				CmdPowerShotFire(rotation, direction);
-				m_rb.AddForce(-direction * m_knockBackAmount, ForceMode.Impulse);
+				m_rb.velocity = -direction * m_knockBackAmount;
 				StartCoroutine(DisableMovement());
 			} else {
 				CmdFire(rotation, direction);
