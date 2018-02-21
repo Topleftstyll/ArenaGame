@@ -13,6 +13,7 @@ public class GameManager : NetworkBehaviour {
 	private List<GameObject> m_players = new List<GameObject>();
 	[SyncVar]
 	private bool isPlaying = true;
+	private int m_numPlayersActive = 0;
 
 	public void AddPlayer(GameObject Player) {
 		if (m_host == null) {
@@ -21,6 +22,7 @@ public class GameManager : NetworkBehaviour {
 		if (!m_players.Contains(Player)) {
 			m_players.Add(Player);
 		}
+		m_numPlayersActive++;
 	}
 
 	private void Awake() {
@@ -31,6 +33,15 @@ public class GameManager : NetworkBehaviour {
 		Debug.Log(m_players.Count);
 		if (!isPlaying) {
 			//game is over and we do something here
+		}
+	}
+
+	public void CheckGameOver() {
+		m_numPlayersActive--;
+		if(m_numPlayersActive == 1) {
+			for(int i = 0; i < m_players.Count; i++) {
+				m_players[i].GetComponent<Player>().GameOver();
+			}
 		}
 	}
 }

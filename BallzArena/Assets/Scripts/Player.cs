@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class Player : NetworkBehaviour {
 
@@ -22,6 +23,7 @@ public class Player : NetworkBehaviour {
 	private bool m_canShoot = true;
 	private bool m_isPowerShot = false;
 	private bool m_isKnockedBack = false;
+	private bool m_isDead = false;
 	private KnockBack m_knockBackScript;
 	private float m_powerShotTimer = 0.0f;
 	private ParticleSystem m_powerUpParticles;
@@ -65,7 +67,7 @@ public class Player : NetworkBehaviour {
 			if(m_powerShotTimer >= 0.1) {
 				m_powerUpParticles.Play();
 				if(m_powerShotTimer >= 1.0f) {
-					ChangeParticleColor(Color.red);
+					CmdChangeParticleColor(Color.red);
 					m_isPowerShot = true;
 				}
 			}
@@ -73,7 +75,7 @@ public class Player : NetworkBehaviour {
 
 		if(Input.GetMouseButtonUp(0) && m_canShoot) {
 			m_powerUpParticles.Stop();
-			ChangeParticleColor(Color.yellow);
+			CmdChangeParticleColor(Color.yellow);
 			m_canShoot = false;
 			Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
 			Vector2 myPos = new Vector2(transform.position.x, transform.position.y);
@@ -111,9 +113,28 @@ public class Player : NetworkBehaviour {
 		NetworkServer.Spawn(bullet);
 	}
 
-	void ChangeParticleColor(Color color) {
+	[Command]
+	void CmdChangeParticleColor(Color color) {
 		var main = m_powerUpParticles.main;
 		main.startColor = color;
+	}
+
+	public void Died() {
+		m_isDead = true;
+		this.gameObject.SetActive(false);
+		GameManager.Instance.CheckGameOver();
+	}
+
+	public void GameOver() {
+		if(isLocalPlayer){
+		if(!m_isDead) {
+			// win scene
+			SceneManager.LoadScene("Win");
+		} else {
+			// lose scene
+			SceneManager.LoadScene("Lose");
+		}
+		}
 	}
 
 	IEnumerator FireRate() {

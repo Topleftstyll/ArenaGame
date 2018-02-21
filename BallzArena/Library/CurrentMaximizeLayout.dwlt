@@ -23,7 +23,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 13388
+  controlID: 14759
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_MinSize: {x: 436, y: 492}
   m_MaxSize: {x: 14006, y: 14042}
   vertical: 1
-  controlID: 13389
+  controlID: 14734
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 13364
+  controlID: 14735
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -167,8 +167,8 @@ MonoBehaviour:
     y: 0
     width: 405
     height: 553
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 6}
   m_Panes:
   - {fileID: 6}
@@ -205,7 +205,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 583efbffdc3efbff0640fbff405efbffc45efbffee5ffbff3e90fbff4090fbff4290fbffa2b1fbffa4b1fbffa6b1fbfffce1fbfffee1fbff00e2fbff4876fcff4a76fcff4c76fcff7276ffffec76ffff1678ffff24c4ffffa8c4ffffd2c5ffffdecdffff9cceffffc6cfffff0ce2ffff9ae2ffffc4e3ffff62eeffffeeeeffff18f0ffff3afaffff00000000
+    m_ExpandedIDs: 620afaff3e26faffd8dafaffd8dbfaff4aeafaffceeafafff8ebfaff84f4faff08f5faff32f6faff0afefaff8efefaffacfffaff4a0dfbff4c0dfbff4e0dfbff5e1ffbffe01ffbff0a21fbff583efbffdc3efbff0640fbff405efbffc45efbffee5ffbff3e90fbff4090fbff4290fbffa2b1fbffa4b1fbffa6b1fbfffce1fbfffee1fbff00e2fbff4876fcff4a76fcff4c76fcff7276ffffec76ffff1678ffff24c4ffffa8c4ffffd2c5ffffdecdffff9cceffffc6cfffff0ce2ffff9ae2ffffc4e3ffff62eeffffeeeeffff18f0ffff3afaffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -246,8 +246,8 @@ MonoBehaviour:
     y: 0
     width: 960
     height: 553
-  m_MinSize: {x: 204, y: 221}
-  m_MaxSize: {x: 4004, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 8}
   m_Panes:
   - {fileID: 8}
@@ -381,7 +381,7 @@ MonoBehaviour:
   m_MinSize: {x: 436, y: 271}
   m_MaxSize: {x: 14006, y: 10021}
   vertical: 0
-  controlID: 13390
+  controlID: 14694
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -447,18 +447,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Prefabs
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefabs
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: E:\_GameDev\_Projects\Unity\ArenaGame\BallzArena
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 362a0000
-    m_LastClickedID: 10806
+    m_SelectedIDs: 262a0000
+    m_LastClickedID: 10790
     m_ExpandedIDs: 000000000c270000182a000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -514,7 +514,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0

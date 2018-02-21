@@ -1,6 +1,8 @@
 WindowsStandalone
 SceneListBegin?
 Assets/Scenes/main.unity
+Assets/Scenes/Win.unity
+Assets/Scenes/Lose.unity
 SceneListEnd?
 55c9bb94933e59c58e8afd2bb699c832 Assembly-CSharp.dll:.PoolManager
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.RotateWeapon

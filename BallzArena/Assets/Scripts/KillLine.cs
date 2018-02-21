@@ -5,6 +5,10 @@ using UnityEngine;
 public class KillLine : MonoBehaviour {
 
 	void OnCollisionEnter(Collision other) {
-		other.gameObject.SetActive(false);
+		if(other.gameObject.name == "Player(Clone)"){
+			other.gameObject.GetComponent<Player>().Died();
+		} else {
+			other.gameObject.SetActive(false);
+		}
 	}
 }
