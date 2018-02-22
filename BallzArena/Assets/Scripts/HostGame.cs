@@ -31,4 +31,8 @@ public class HostGame : MonoBehaviour {
 			m_networkManager.matchMaker.CreateMatch(m_roomName, m_roomSize, true, "", "", "", 0, 0, m_networkManager.OnMatchCreate); // change "" and make password variable if you want passwords
 		}
 	}
+
+	public void QuitGame() {
+		Application.Quit();
+	}
 }
