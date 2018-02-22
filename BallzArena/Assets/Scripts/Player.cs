@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
+using UnityEngine.Networking.Match;
 using UnityEngine.SceneManagement;
 
 public class Player : NetworkBehaviour {
@@ -27,6 +29,7 @@ public class Player : NetworkBehaviour {
 	private KnockBack m_knockBackScript;
 	private float m_powerShotTimer = 0.0f;
 	private ParticleSystem m_powerUpParticles;
+	private NetworkManager m_networkManager;
 
 	void Awake() {
 		m_rb = GetComponent<Rigidbody>();
@@ -36,6 +39,10 @@ public class Player : NetworkBehaviour {
 		m_currNumOfJumps = m_numOfJumps;
 		m_gravity = Physics.gravity;
 		m_jumpGravity = m_gravity*m_gravityMultiplier;
+	}
+
+	void Start() {
+		m_networkManager = NetworkManager.singleton;
 	}
 
 	void Update() {
@@ -132,6 +139,9 @@ public class Player : NetworkBehaviour {
 
 	public void GameOver() {
 		if(isLocalPlayer){
+			MatchInfo matchInfo = m_networkManager.matchInfo;
+			m_networkManager.matchMaker.DropConnection(matchInfo.networkId, matchInfo.nodeId, 0, m_networkManager.OnDropConnection);
+			m_networkManager.StopHost();
 			if(!m_isDead) {
 				// win scene
 				SceneManager.LoadScene("Win");

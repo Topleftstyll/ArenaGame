@@ -448,7 +448,7 @@ MonoBehaviour:
   m_speed: 5
   m_gravityMultiplier: 2
   m_baseJumpForce: 6
-  m_bulletSpeed: 6
+  m_bulletSpeed: 10
   m_knockBackAmount: 8
   m_bulletPrefab: {fileID: 1266435631835870, guid: fd1e88f447662644b9a659b2c3c80ed1,
     type: 2}
