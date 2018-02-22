@@ -39,59 +39,64 @@ public class Player : NetworkBehaviour {
 	}
 
 	void Update() {
-		if(!m_knockBackScript.m_isKnocked && !m_isKnockedBack) {
-			if(Input.GetKey(KeyCode.A)) {
-				transform.Translate(Vector3.left * Time.deltaTime * m_speed);
-			} 
+		if(PauseMenu.m_isOn)
+			return;
 
-			if(Input.GetKey(KeyCode.D)) {
-				transform.Translate(Vector3.right * Time.deltaTime * m_speed);
-			}
+		if(GameManager.Instance.m_gameStarted) {
+			if(!m_knockBackScript.m_isKnocked && !m_isKnockedBack) {
+				if(Input.GetKey(KeyCode.A)) {
+					transform.Translate(Vector3.left * Time.deltaTime * m_speed);
+				} 
 
-			if(Input.GetButtonDown("Jump") && m_currNumOfJumps > 0) {
-				m_rb.velocity = Vector3.up * m_baseJumpForce;
-				Physics.gravity = m_gravity;
-				m_isGrounded = false;
-				m_currNumOfJumps--;
-			}
+				if(Input.GetKey(KeyCode.D)) {
+					transform.Translate(Vector3.right * Time.deltaTime * m_speed);
+				}
 
-			if (m_rb.velocity.y < 0.1 && !m_isGrounded) {
-				Physics.gravity = m_jumpGravity;
-			} else if (m_isGrounded && Physics.gravity == m_jumpGravity) {
-				Physics.gravity = m_gravity;
-			}
-		}
+				if(Input.GetButtonDown("Jump") && m_currNumOfJumps > 0) {
+					m_rb.velocity = Vector3.up * m_baseJumpForce;
+					Physics.gravity = m_gravity;
+					m_isGrounded = false;
+					m_currNumOfJumps--;
+				}
 
-		if(Input.GetMouseButton(0)) {
-			m_powerShotTimer += Time.deltaTime;
-			if(m_powerShotTimer >= 0.1) {
-				m_powerUpParticles.Play();
-				if(m_powerShotTimer >= 1.0f) {
-					CmdChangeParticleColor(Color.red);
-					m_isPowerShot = true;
+				if (m_rb.velocity.y < 0.1 && !m_isGrounded) {
+					Physics.gravity = m_jumpGravity;
+				} else if (m_isGrounded && Physics.gravity == m_jumpGravity) {
+					Physics.gravity = m_gravity;
 				}
 			}
-		}
 
-		if(Input.GetMouseButtonUp(0) && m_canShoot) {
-			m_powerUpParticles.Stop();
-			CmdChangeParticleColor(Color.yellow);
-			m_canShoot = false;
-			Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
-			Vector2 myPos = new Vector2(transform.position.x, transform.position.y);
-			Vector2 direction = target - myPos;
-			direction.Normalize();
-			Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-			if(m_isPowerShot) {
-				m_isKnockedBack = true;
-				CmdPowerShotFire(rotation, direction);
-				m_rb.velocity = -direction * m_knockBackAmount;
-				StartCoroutine(DisableMovement());
-			} else {
-				CmdFire(rotation, direction);
+			if(Input.GetMouseButton(0)) {
+				m_powerShotTimer += Time.deltaTime;
+				if(m_powerShotTimer >= 0.1) {
+					m_powerUpParticles.Play();
+					if(m_powerShotTimer >= 1.0f) {
+						CmdChangeParticleColor(Color.red);
+						m_isPowerShot = true;
+					}
+				}
 			}
-			StartCoroutine(FireRate());
-			m_powerShotTimer = 0.0f;
+
+			if(Input.GetMouseButtonUp(0) && m_canShoot) {
+				m_powerUpParticles.Stop();
+				CmdChangeParticleColor(Color.yellow);
+				m_canShoot = false;
+				Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+				Vector2 myPos = new Vector2(transform.position.x, transform.position.y);
+				Vector2 direction = target - myPos;
+				direction.Normalize();
+				Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+				if(m_isPowerShot) {
+					m_isKnockedBack = true;
+					CmdPowerShotFire(rotation, direction);
+					m_rb.velocity = -direction * m_knockBackAmount;
+					StartCoroutine(DisableMovement());
+				} else {
+					CmdFire(rotation, direction);
+				}
+				StartCoroutine(FireRate());
+				m_powerShotTimer = 0.0f;
+			}
 		}
 	}
 
@@ -127,13 +132,13 @@ public class Player : NetworkBehaviour {
 
 	public void GameOver() {
 		if(isLocalPlayer){
-		if(!m_isDead) {
-			// win scene
-			SceneManager.LoadScene("Win");
-		} else {
-			// lose scene
-			SceneManager.LoadScene("Lose");
-		}
+			if(!m_isDead) {
+				// win scene
+				SceneManager.LoadScene("Win");
+			} else {
+				// lose scene
+				SceneManager.LoadScene("Lose");
+			}
 		}
 	}
 

@@ -13,7 +13,7 @@ d7253c0d5dfc2c7dbce2d0a5d4b4551b Assembly-CSharp.dll:.CameraScript
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.CallbackExecutor
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.Editor.Placeholder
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.KillLine
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.GameManager
+8e93118b9b2f7bcbdf22ed8a9d426cd6 Assembly-CSharp.dll:.GameManager
 2b925f3a06cc81d97b7fa1e5213914c3 Assembly-CSharp.dll:.Projectile
 5385fbc5d1a4afe6b34d4b553924e840 Assembly-CSharp.dll:.EnableNetworkedScripts
 0a66b9eefa088bf9b88f99e6655cac0f Assembly-CSharp.dll:.KnockBack
@@ -150,3 +150,9 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInput
 463516d5b5fe8e67a0a24c48f2095b04 UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInputModule
+4facb71bdcd65a30811c7ad0c05d1718 Assembly-CSharp.dll:.HostGame
+b25b66098a3f7848d40730d9943a9c52 Assembly-CSharp.dll:.JoinGame
+4bbf875ba4c4deaca47f09dcf0988524 Assembly-CSharp.dll:.RoomListItem
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.GameOverManager
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.PauseMenu
+ef7ace551f85170c9bd34038284ceff9 Assembly-CSharp.dll:.PlayerUI
